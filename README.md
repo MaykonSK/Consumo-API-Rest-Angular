@@ -29,3 +29,24 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## API Pública
 
 https://jsonplaceholder.typicode.com/
+
+import { Imagem } from "./Componentes/imagem/imagem.model";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class CrudService {
+  urlImagens: string = 'https://jsonplaceholder.typicode.com/photos';
+
+  constructor(private http: HttpClient) {}
+
+  getImagem(): Observable<Imagem[]> {
+    return this.http.get(this.urlImagens)
+    //mapear a interface
+    .pipe(map((response: any) => response));
+  }
+}
